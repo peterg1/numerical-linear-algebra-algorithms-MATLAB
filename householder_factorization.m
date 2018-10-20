@@ -31,7 +31,7 @@ for k = 1:stop
     x = A(k:m,k); 
     W(k:m, k) = sign(x(1))*norm(x)*e + x; % stores the vector used to make the householder reflector in W
     W(k:m, k) = W(k:m, k)/norm(W(k:m, k));
-    A(k:m,k:n) = A(k:m,k:n) - 2*W(k:m, k)*W(k:m, k)'*A(k:m,k:n); % applying the reflector to induce 0's below the diagonal
+    A(k:m,k:n) = A(k:m,k:n) - 2*W(k:m, k)*W(k:m, k)'*A(k:m,k:n); % applying the reflector to induce 0's below the diagonal in column k
 end
 R = A(1:m,1:n);
 end

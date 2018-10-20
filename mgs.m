@@ -5,7 +5,7 @@ is a matrix, output Q is a matrix with orthonormal columns, R is upper triangula
 
 FLOP count - the number of FLOPS is dominated by the inner for loop. For an m by n matrix the
 dot product dot(Q(:,i),Q(:,j)) contains m multiplications and m-1 additions, and Q(:,j) - R(i,j)*Q(:,i) 
-contains m multiplications and m subtractions for approximatly 4m FLOPS. The FLOP count is the approximatly 
+contains m multiplications and m subtractions for approximatly 4m FLOPS. The FLOP count is approximatly 
 (sum from i = 1 to n)[(sum j = i+1 to n) 4m] ~ (sum from i = 1 to n) i*4m ~ 2mn^2 FLOPS.
 %}
 

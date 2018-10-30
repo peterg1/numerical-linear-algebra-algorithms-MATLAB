@@ -1,28 +1,49 @@
-function [U,L,P] = Gauss(A) % algorithm 21.1
-U=A;
+function [U,L,P] = Gauss(A) 
+%{
+Guassian elimination with partial pivoting. The input A is an m by n matrix. Output is a m by m permutation matrix P,
+an m by m lower triangular matrix L, and an m by n upper triangular matrix U such that PA = LU
+
+FLOP count - To the leading order, the flop count is the same as guassian elimination without pivoting (finding
+all of the pivots takes ~ 1/2(m^2) comparisons). The FLOP count is dominated by preforming the elimination step after pivoting:
+    for j = k+1:m  
+        L(j,k) = U(j,k)/U(k,k);
+        U(j,k:m) = U(j,k:m) - L(j,k)*U(k,k:m);
+
+
+%}
 [m,n] = size(A);
-L = eye(n);
-P = eye(n);
+L = eye(m);
+P = eye(m);
+U = A;
 
 for k = 1:m-1  
     x = U(k,k);
-    row_i = k;
+    pivot_row = k;
     for i = k+1:m % find the largest element in column k with row # > k
         if abs(x) < abs(U(i,k))
             x = U(i,k);
-            row_i = i;
+            pivot_row = i;
         end
-    end       %pivoting row k with row_i
-    u = U(row_i,:);             %Changes row_i with k in U
-    U(row_i,:) = U(k,:);        %Changes row_i with k in U
-    U(k,:) = u;                 %Changes row_i with k in U
-    p = P(row_i,:);             %Changes row_i with k in P
-    P(row_i,:) = P(k,:);        %Changes row_i with k in P
-    P(k,:) = p;                 %Changes row_i with k in P
-    l = L(row_i,1:k-1);         %Changes row_i with k in L
-    L(row_i,1:k-1) = L(k,1:k-1);%Changes row_i with k in L
-    L(k,1:k-1) = l;             %Changes row_i with k in L
-    for j = k+1:m  %preforms Gaussian elimination after pivoting
+    end     
+    
+    %swaps pivot_row with row k in U
+    u = U(pivot_row,:);             
+    U(pivot_row,:) = U(k,:);       
+    U(k,:) = u;     
+    
+    %swaps pivot_row with row k in P
+    Changes row_i with k in U
+    p = P(pirvot_row,:);             
+    P(pivot_row,:) = P(k,:);        
+    P(k,:) = p;
+    
+    %swaps pivot_row with k in L
+    l = L(pivot_row,1:k-1);         
+    L(pivot_row,1:k-1) = L(k,1:k-1);
+    L(k,1:k-1) = l;           
+    
+    %preforms Gaussian elimination after pivoting
+    for j = k+1:m  
         L(j,k) = U(j,k)/U(k,k);
         U(j,k:m) = U(j,k:m) - L(j,k)*U(k,k:m);
     end

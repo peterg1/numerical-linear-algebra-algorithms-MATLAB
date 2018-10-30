@@ -6,7 +6,7 @@ an m by c lower triangular matrix L, and a c by n upper triangular matrix U such
 
 FLOP count - To the leading order, the flop count is the same as gaussian elimination without pivoting (finding
 all of the pivots takes ~ 1/2(m^2) comparisons). The FLOP count is dominated by preforming the elimination step 
-after pivoting:
+after pivoting: 
 
 for k = 1: z
 ...

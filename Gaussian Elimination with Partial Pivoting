@@ -1,0 +1,32 @@
+function [U,L,P] = Gauss(A) % algorithm 21.1
+U=A;
+[m,n] = size(A);
+L = eye(n);
+P = eye(n);
+
+for k = 1:m-1  
+    x = U(k,k);
+    row_i = k;
+    for i = k+1:m % find the largest element in column k with row # > k
+        if abs(x) < abs(U(i,k))
+            x = U(i,k);
+            row_i = i;
+        end
+    end       %pivoting row k with row_i
+    u = U(row_i,:);             %Changes row_i with k in U
+    U(row_i,:) = U(k,:);        %Changes row_i with k in U
+    U(k,:) = u;                 %Changes row_i with k in U
+    p = P(row_i,:);             %Changes row_i with k in P
+    P(row_i,:) = P(k,:);        %Changes row_i with k in P
+    P(k,:) = p;                 %Changes row_i with k in P
+    l = L(row_i,1:k-1);         %Changes row_i with k in L
+    L(row_i,1:k-1) = L(k,1:k-1);%Changes row_i with k in L
+    L(k,1:k-1) = l;             %Changes row_i with k in L
+    for j = k+1:m  %preforms Gaussian elimination after pivoting
+        L(j,k) = U(j,k)/U(k,k);
+        U(j,k:m) = U(j,k:m) - L(j,k)*U(k,k:m);
+    end
+end
+
+end
+

@@ -1,32 +1,30 @@
 function [D] = QR_shift(A,tolerance)
 %{
-This algorithm utilizes a function called find_submatrix and a fucntion called
-HR_to_Hessenberg, both of which can be found in the same repository as this
+This algorithm utilizes two functions called find_submatrix and
+HR_to_Hessenberg, which can be found in the same repository as this
 algorithm.
 
 A is a symmetric matrix
-tolerance is the threshold that subdiagonal elemnts need to be under before they are set to 0. 
-D is backwards stable approximation to the diagonalization of A.
 
-This is the QR algorithm with the Rayleigh quotient shift.  This is an iterativ algorithm that takes a symetrix matrix A and
-returns an approximation, D, to its diagonalized form. This algorithm will not converge for arbitrary choices of
-A, for instance this algorithm will not converge for [[0,1]',[1,0]']. The Wilkinson shift or other mmethods can be used to 
-gauruntee convergence. Other methods can be used to handle non-symmetric cases.
+tolerance is the threshold that subdiagonal elements need to be under before they are set to 0. 
+
+D is backwards stable approximation to the Shur form (diagonalization of A since A is symmetric).
 
 Convergence rate depends on the relative spacing of the eigenvalues, which is why an eigenvalue approxiamtion shift is 
 used (to bring one of the eigenvalues close to 0). Full discussion of the convergence rate is too complex to provide here. 
 See Trefethen and Bau section 28/29.
 
-FLOP count - A discussion of FLOP count per iteration is to invloved to give here as we
-are operating on a principle submatrix of the Hessenberg form of A and it depends on how MATLAB utilizes the
-form of the matrices we are working with, but it should be dominated by the operation: B = R*Q + u*eye(b-a+1)
+Apprixmating the real Shur form for the non-symemtric case while using shifts and minimizing computation becomes
+more nuanced, see QR algorithm with implicit double shift.
+
 %}
 
 
-%This algoithm can be simplified if we assume deflation will only occur at the m,m-1 and m-1, m spot, as will typically occur 
-%when the Rayleigh quotien of wilkinson shift is chosen
 
-[D,R] = HR_to_Hessenberg(A); %A is first reduced to Hessenberg form to reduce computation.
+%This algoithm can be simplified if we assume deflation will only occur at the m,m-1 and m-1, m spot, as will typically occur 
+%when the Rayleigh quotient or wilkinson shift is chosen
+
+[D,~] = HR_to_Hessenberg(A); %A is first reduced to Hessenberg form to reduce computation.
 a = 1;
 c = 1;
 while a ~= 0; % a == 0 iff A is diagonalized so we keep doing QR algorith until this occurs

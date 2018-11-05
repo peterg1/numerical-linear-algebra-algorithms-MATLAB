@@ -27,14 +27,14 @@ more nuanced, see QR algorithm with implicit double shift.
 [D,~] = HR_to_Hessenberg(A); %A is first reduced to Hessenberg form to reduce computation.
 a = 1;
 c = 1;
-while a ~= 0; % a == 0 iff A is diagonalized so we keep doing QR algorith until this occurs
+while true 
     if c == 1; %this section should only occur if there were off diagonal elements replaced by 0
         [a,b] = find_submatrix(D); %This function finds the first block of a hermetian tridiagonal matrix A of maximal 
                                    %size that has non-zero entries on its subdiagonal. This step is know as deflation. When 
                                    %the Rayleigh quotient shift is used it will usually 
                                    %only result in the removal of the last row and column. This isn't assumed here but if it 
                                    %is a shorter algorithm can be given.
-        if a == 0;
+        if a == 0; % a == 0 iff A is diagonalized so we keep doing QR algorith until this occurs
             return
         end
         B = D(a:b,a:b); 

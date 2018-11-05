@@ -22,7 +22,7 @@ more nuanced, see QR algorithm with implicit double shift.
 
 
 %This algoithm can be simplified if we assume deflation will only occur at the m,m-1 and m-1, m spot, as will typically occur 
-%when the Rayleigh quotient or wilkinson shift is chosen
+%when the Rayleigh quotient or wilkinson shift is chosen. This isn't assumed here though since it isn't assumed in Treffethen & Bau
 
 [D,~] = HR_to_Hessenberg(A); %A is first reduced to Hessenberg form to reduce computation.
 a = 1;

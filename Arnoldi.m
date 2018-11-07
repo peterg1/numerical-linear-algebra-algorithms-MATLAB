@@ -5,9 +5,9 @@ n is the number of iterations to be preformed. Note that n must be less
 than or euqual to the number of columns of A.
 
 H is the upper (n+1) by n upper-left section of the Hessenberg form of A
-Q stores the orthogonal bases for the Krylov subspace.
+
 %}
-[a,m] = size(A);
+[~,m] = size(A);
 Q = zeros(m); %will store the orthogonal bases for the Krylov subspace
 H = zeros(m); % will store the Hessenberg form of A
 Q(1:m,1) = b/norm(b);

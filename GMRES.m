@@ -34,3 +34,57 @@ for i = 1:n;  %begining Arnoldi iteration
     Q(1:m,i+1) = v/H(i+1,i);
 end
 end
+
+
+
+
+
+
+
+
+
+
+function [x , normrn] = gmres(A,b,maxiter)
+% solves A x = b using gmres
+% input:  A -  m by m matrix
+%         b -  m by 1 vector
+% output: x - approximate solution
+%         normrn - norm(b-A*x) at each step of algorithm
+% Also
+%         plot normrn/ norm(b) versus n (step number)
+% Example:
+%      m = 200;
+%      A = eigmat(2,1/2,m);
+%      xtrue = randn(m,1);
+%      b = A*xtrue;
+%      [x , normrn] = gmres(A,b,20);
+% CAUTION:  Matlab has a built-in function with the same
+%      name (gmres).  If you want to use the new version
+%      of gmres make sure your active folder contains the
+%      new version of gmres in file gmres.m.
+ 
+Q = [];
+H = 0;
+m = length(A);
+normb = norm(b);
+normrn=normb;
+Q(:,1) = b / normb;
+ 
+for n = 1:maxiter
+    % Arnoldi step calculations (Algorithm 33.1 for Trefethen and Bau)
+    v = A*Q(:,n);
+    for j = 1:n
+        H(j,n) = Q(:,j)'* v;
+        v = v  - H(j,n)*Q(:,j);
+    end
+    Hn = H(1:n,1:n);
+    H(n+1,n) = norm(v);
+    if H(n+1,n) == 0, break, end    % breakdown so stop
+    Q(:,n+1) = v / H(n+1,n);
+    e1 = [1;zeros(n,1)];
+    y = H \ (normb*e1);  % This can be done much more quickly
+                         % using Givens rotations.
+                         % For simplicity we just use Matlab's \
+    normrn = [normrn,norm(H*y-normb*e1)];   % remember residual norm                         
+end
+x = Q(:,1:n)*y;

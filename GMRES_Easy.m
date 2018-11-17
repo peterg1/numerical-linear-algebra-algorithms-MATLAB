@@ -20,6 +20,11 @@ here though requires much less code.
 
 This algorithm uses a function called Arnoldi, which is avaialbe in this repository, as a subroutine.
 
+As for most iterative methods, the computation time is domiated by some
+matrix vector product. As iterative algorithms are usually applied to large
+sparse matrices, the comptuation time of the matrix vector product depends on
+how the matrix structure is utilized in computation.
+
 The convergence of GMRES depends heavily on specrum of A and the algorithm
 will preform poorly for an arbitrary matrix A. The algorithm will converge
 extremely fast for a matrix like A = 2*eye(200) + .5*randn(200)/sqrt(200)

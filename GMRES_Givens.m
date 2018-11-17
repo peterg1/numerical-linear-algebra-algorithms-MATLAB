@@ -76,13 +76,13 @@ for i = 3:n;
     end
     H(i+1,i) = norm(v);
     R(1:i+1,i) = H(1:i+1,i);
-    for j = 1:i-1 %update R with givens roation. Takes O(i)/O(m) time (linear)
+    for j = 1:i-1 %update R with givens roation. Takes O(i) time (linear)
         R(j:j+1,i) = givens((2*j)-1:2*j,1:2)*R(j:j+1,i);
     end
     [G,y] = planerot(R(i:i+1,i));
     givens(2*i-1:2*i,1:2) = G;
     R(i:i+1,i) = y;
-    for j = 1:i  %update Qn with givens roation. Takes O(i)/O(m) time (linear)
+    for j = 1:i  %update Qn with givens roation. Takes O(i) time (linear)
         Qn(j,i:i+1) = [Qn(j,i)*G(1,1),Qn(j,i)*G(2,1)]';
     end
     Qn(i+1,i:i+1) = [G(1,2),G(2,2)];

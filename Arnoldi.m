@@ -18,7 +18,9 @@ The columns of Q is an orthonormal basis for the Krylov subspace A, Ab, (A^2)b,.
 A^(n-1)b.
 
 As for most iterative methods, the computation time is domiated by some
-matrix vector product.
+matrix vector product. As iterative algorithms are usually applied to large
+sparse matrices, the comptuation time of the matrix vector product depends on
+how the matrix structure is utilized in computation.
 
 Convergence: 
 The convergence rate of the eigenvlaues of H produced by the Arnoldi iteration is not fully

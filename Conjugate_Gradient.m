@@ -9,8 +9,11 @@ ith column of approximation is the approxiamtion of x at ith step
 
 ith entry of residual is the residual at ith step.
 
-FLOP count is dominated by the matrix-vector product A*p in the line r = r - a*A*p;
-A is an m by m matric and p is a legnth m vector, so A*p is 2m^2 FLOPS.
+As for most iterative methods, the computation time is domiated by some
+matrix vector product. As iterative algorithms are usually applied to large
+sparse matrices, the comptuation time of the matrix vector product depends on
+how the matrix structure is utilized in computation. Here the matrix-vector product is A*p in the line r = r - a*A*p;
+A is an m by m matric and p is a legnth m vector, so A*p is 2m^2 FLOPS if matrix stucture is not utilized.
 
 convergence - discussion of convergence is similar to that given for GMRES.
 also, see Trefethen and Bau section 38.

@@ -18,6 +18,11 @@ the algorithm can be modified to run until the residual is below a given
 threshold (for this case a good precondition must be chosen for the matrix or else the algorithm will
 most likely run until n = length(A)).
 
+As for most iterative methods, the computation time is domiated by some
+matrix vector product. As iterative algorithms are usually applied to large
+sparse matrices, the comptuation time of the matrix vector product depends on
+how the matrix structure is utilized in computation.
+
 The convergence of GMRES depends heavily on specrum of A and the algorithm
 will preform poorly for an arbitrary matrix A, and a good preconditioner must be used 
 to get a good convergence rate. The algorithm will converge

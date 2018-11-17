@@ -31,7 +31,7 @@ extremely fast for a matrix like A = 2*eye(200) + .5*randn(200)/sqrt(200)
  the complex plane of radius 1/2 centered at 2. 
  
 It can be shown that for the GMRES algorithm, the residue at step n is given by Pn(A)b, where
-Pn is the unique polynomial with 0 as its constant coefficent that minimizes ||Pn(A)b|| in the 2-norm.
+Pn is the unique polynomial of degree n with 0 as its constant coefficent that minimizes ||Pn(A)b|| in the 2-norm.
 
 %}
 [~,m] = size(A);
